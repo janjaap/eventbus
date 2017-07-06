@@ -14,7 +14,7 @@ The MessageStore can record messages and can be used as middleware for the Event
 
 ### Example (synchronous messaging)
 #### Flow
-```asciidoc
+```
 - Instantiate EventBus
 - Create topic
 - Subscribe to topic
@@ -214,7 +214,7 @@ The `MessageRecorder` middleware class appends its functionality to the target m
 Subscribers can subscribe to messages that have already been published in a topic that a subscriber creates a subscription for. Messages that a subscriber wants to listen to can be stored in a separate message store, so that any subscriber can be notified whenever it subscribes to a topic where messages, that it wants to listen to, have already been published.
 
 #### Flow
-```asciidoc
+```
 - Instantiate EventBus
 - Publish message
 - Create topic
@@ -234,9 +234,9 @@ Subscribers can subscribe to messages that have already been published in a topi
         +------------+           +---------+---------+  |        |
                                            |            |        |
                                            |            |   +----+-----+
-                                           +            |   |          |
+                                           |            |   |          |
                                    isMessageRecorded    +---+ EventBus |
-                                           +                |          |
+                                           |                |          |
                                            |                +--^----^--+
                                            |                   |    |
 +-----------+    create topic     +--------v--------+          |    |
