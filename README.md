@@ -140,11 +140,12 @@ Next to the Manager class, the Middleware module has the MessageRecorder as well
 
 ### Using the middleware manager
 
-The middleware manager chains its middleware class instances so that they are executed in the order they are defined in the manager's `use` method. Each middleware class has access to the target object.
+The middleware manager chains its middleware class instances so that they are executed in the order they are defined in the manager's `use` method. Each middleware class has access to the target object as well as to the next method in the chain, which can be the target's method or the following middleware class method.
 
 Take the following (simplified) example:
+
 ```javascript
-// class responsible for storing topics
+// class responsible for storing subscribers
 class EventBus {
     constructor() {
         this.subscribers = [];
@@ -180,7 +181,7 @@ class MessageVerifier {
 
 // middleware class
 class MessageRecorder {
-    constructor(messageStor) {
+    constructor(messageStore) {
         this.messageStore = messageStore;
     }
 
@@ -205,9 +206,14 @@ middlewareManager.use(
 );
 ```
 
-Both middleware classes hook into the EventBus' `publish()` method. The `MessageVerifier` middleware class prepends its functionality by removing invalid charactes from the passed in `message` parameter value and then passing that value on to the next middleware class in line. If a middleware class object is the last in line, calling `next()` will be equal to calling the method of the target object that the middleware class hooks into. Returning `false` from any method in a middleware class will break the chain and stop execution.
+Both middleware classes hook into the EventBus' `publish()` method. The `MessageVerifier` middleware class prepends its functionality by removing invalid charactes from the passed in `message` parameter value and then passing that value on to the next function in line. If a middleware class object is the last in line, calling `next()` will be equal to calling the method of the target object that the middleware class hooks into. Returning `false` from any method in a middleware class will break the chain and stop execution.
 
 The `MessageRecorder` middleware class appends its functionality to the target method by calling `next()` first, storing the value for the `message` parameter and then returning the result of the call to `next()`.
+
+By using the above two middleware classes, the order of actions, when calling the `publish()` on the EventBus, are:
+- remove invalid characters
+- publish message, calling all subscribers
+- store message for later use
 
 ### Example (Asynchronous messaging)
 
@@ -307,5 +313,7 @@ middlewareManager.use(
 
 The above construct will persist messages for later use. However, messages will only be persisted when the `MessageRecorder` middleware class instance has been hooked into the EventBus. Messages that are published before that, are lost and cannot be acted upon at a later point in time.
 
+---
 
+CircleCI build status: [![CircleCI](https://circleci.com/gh/janjaap/eventbus.svg?style=svg)](https://circleci.com/gh/janjaap/eventbus)
 
