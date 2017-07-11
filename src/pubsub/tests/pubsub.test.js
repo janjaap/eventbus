@@ -13,11 +13,10 @@ chai.use(sinonChai);
 
 const topic = '✨ a topic can be any string ✨';
 const message = '🔗 a message can also be any string 📃';
-const eb = new EventBus();
 
 describe('PubSub', function () {
     describe('Publisher', function () {
-        const p = new Publisher(topic, eb);
+        const p = new Publisher(topic, EventBus);
         const pt = p.topic;
         const peb = p.EventBus;
 
@@ -25,29 +24,28 @@ describe('PubSub', function () {
             assert.strictEqual(peb.topicIsCreated(pt), true);
         });
 
-        it('routes sending messages to the eventbus', function () {
-            const eventbusPublishSpy = sinon.spy(peb, 'publish');
+        it('routes sent messages to the eventbus', function () {
             p.send(message);
 
-            expect(eventbusPublishSpy).to.have.been.calledWith(message, pt);
+            expect(EventBus.publish).to.have.been.calledWith(message, pt);
         });
 
         it('sends messages that has the EventBus call all of its topic subscribers', function () {
             const callbackSpy1 = sinon.spy();
             const callbackSpy2 = sinon.spy();
 
-            const s1 = new Subscriber(message, callbackSpy1, eb);
-            const s2 = new Subscriber(message, callbackSpy2, eb);
+            const s1 = new Subscriber(message, callbackSpy1, EventBus);
+            const s2 = new Subscriber(message, callbackSpy2, EventBus);
 
             const topic2 = `${topic}2`;
 
             // create a subscriber that doesn't receive the message
-            eb.createTopic(topic2);
-            eb.subscribe(s2, topic2);
+            EventBus.createTopic(topic2);
+            EventBus.subscribe(s2, topic2);
 
             // subscriber that should receive the message
-            eb.subscribe(s1);
-            eb.publish(message);
+            EventBus.subscribe(s1);
+            EventBus.publish(message);
 
             expect(callbackSpy1).to.have.been.called;
             expect(callbackSpy2).to.have.not.been.called;
@@ -58,7 +56,7 @@ describe('PubSub', function () {
         let s = null;
 
         beforeEach(function () {
-            s = new Subscriber(message, function () { }, new EventBus());
+            s = new Subscriber(message, function () { }, EventBus);
         });
 
         it('routes a subscription to the eventbus', function () {

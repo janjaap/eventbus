@@ -8,7 +8,7 @@
  * @class PublicationPoller
  * @namespace Middleware
  */
-class PublicationPoller {
+export default class PublicationPoller {
     /**
      * Creates an instance of PublicationPoller
      *
@@ -37,7 +37,7 @@ class PublicationPoller {
     /**
      * Polls for messages in a topic
      *
-     * @param {Object} target - reference to Subscriber instance
+     * @param {Object} target - the actual objec that this middleware class hooks into
      * @returns {Function}
      *
      * @memberof PublicationPoller
@@ -55,7 +55,7 @@ class PublicationPoller {
     /**
      * Polls for messages in multiple topics
      *
-     * @param {Object} target - reference to Subscriber instance
+     * @param {Object} target - the actual objec that this middleware class hooks into
      * @returns {Function}
      *
      * @memberof PublicationPoller
@@ -70,5 +70,3 @@ class PublicationPoller {
         };
     }
 }
-
-export default PublicationPoller;

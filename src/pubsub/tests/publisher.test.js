@@ -8,7 +8,6 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const topic = '✨ a topic can be any string ✨';
-const eb = new EventBus();
 
 describe('Publisher', function () {
     describe('Instance', function () {
@@ -22,11 +21,11 @@ describe('Publisher', function () {
             }).to.throw();
         });
 
-        const p = new Publisher(topic, eb);
+        const p = new Publisher(topic, EventBus);
         const peb = p.EventBus;
 
         it('has a reference to EventBus', function () {
-            assert.strictEqual(peb, eb);
+            assert.strictEqual(peb, EventBus);
         });
 
         it("has a method 'send'", function () {

@@ -7,7 +7,7 @@
  * @class Subscriber
  * @namespace PubSub
  */
-class Subscriber {
+export default class Subscriber {
     /**
      * Creates an instance of Subscriber.
      *
@@ -29,8 +29,6 @@ class Subscriber {
         this.callback = callback;
         this.publishedMessages = [];
         this.needsAllMessagesForCallback = true;
-
-        return this;
     }
 
     /**
@@ -41,6 +39,8 @@ class Subscriber {
      */
     requireAllMessages(requireAll) {
         this.needsAllMessagesForCallback = requireAll;
+
+        return this;
     }
 
     /**
@@ -134,12 +134,10 @@ class Subscriber {
             this.setPublished(message);
 
             if (!this.needsAllMessagesForCallback) {
-                this.callback();
+                this.callback(message);
             } else if (this.allMessagesPublished) {
-                this.callback();
+                this.callback(message);
             }
         }
     }
 }
-
-export default Subscriber;

@@ -6,7 +6,7 @@
  * @class Publisher
  * @namespace PubSub
  */
-class Publisher {
+export default class Publisher {
     /**
      * Creates an instance of Publisher.
      * Will call the 'createTopic' method on the eventbus and get the value of 'topic' returned
@@ -37,5 +37,3 @@ class Publisher {
         this.EventBus.publish(message, this.topic);
     }
 }
-
-export default Publisher;

@@ -19,11 +19,10 @@ const messages = [
 ];
 const callback = function () { console.log('yep'); };
 let s = null;
-const eb = new EventBus();
 
 describe('Subscriber', function () {
     beforeEach(function () {
-        s = new Subscriber(message, callback, eb);
+        s = new Subscriber(message, callback, EventBus);
     });
 
     describe('Instance', function () {
@@ -43,7 +42,7 @@ describe('Subscriber', function () {
         });
 
         it('can receive an array of messages to listen to', function () {
-            s = new Subscriber(messages, callback, eb);
+            s = new Subscriber(messages, callback, EventBus);
 
             expect(s.listensFor).to.be.a('function');
             assert.strictEqual(s.listensFor(messages[0]), true);
@@ -68,16 +67,16 @@ describe('Subscriber', function () {
     describe('Process', function () {
         it('executes the callback when its message has been published', function () {
             const cb = sinon.spy();
-            s = new Subscriber(message, cb, eb);
+            s = new Subscriber(message, cb, EventBus);
 
             expect(cb).to.have.not.been.called;
             s.process(message);
-            expect(cb).to.have.been.called;
+            expect(cb).to.have.been.calledWith(message);
         });
 
         it('executes the callback each time a message has been published', function () {
             const cb = sinon.spy();
-            s = new Subscriber(messages, cb, eb);
+            s = new Subscriber(messages, cb, EventBus);
 
             s.requireAllMessages(false);
 
@@ -93,7 +92,7 @@ describe('Subscriber', function () {
 
         it('executes the callback when all messages have been published', function () {
             const cb = sinon.spy();
-            s = new Subscriber(messages, cb, eb);
+            s = new Subscriber(messages, cb, EventBus);
 
             s.process(messages[0]);
             expect(cb).to.have.not.been.called;
@@ -102,7 +101,7 @@ describe('Subscriber', function () {
             expect(cb).to.have.not.been.called;
 
             s.process(messages[2]);
-            expect(cb).to.have.been.called;
+            expect(cb).to.have.been.calledWith(messages[2]);
 
             assert.strictEqual(s.allMessagesPublished, true);
         });

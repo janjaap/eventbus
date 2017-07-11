@@ -16,8 +16,9 @@ class EventBus {
      * @memberof EventBus
      */
     constructor() {
+        this.defaultTopic = '__global__';
         this.topics = {};
-        this.topics[EventBus.defaultTopic] = [];
+        this.topics[this.defaultTopic] = [];
     }
 
     /**
@@ -46,7 +47,7 @@ class EventBus {
      *
      * @memberof EventBus
      */
-    publish(message, topic = EventBus.defaultTopic) {
+    publish(message, topic = this.defaultTopic) {
         if (!this.topicIsCreated(topic)) {
             throw new Error(`[EventBus] Cannot publish a message in non-existent topic '${topic}'`);
         }
@@ -64,7 +65,7 @@ class EventBus {
      * @throws {Error} - Whenever a topic has not been created yet
      * @memberof EventBus
      */
-    subscribe(subscriber, topic = EventBus.defaultTopic) {
+    subscribe(subscriber, topic = this.defaultTopic) {
         if (!this.topicIsCreated(topic)) {
             throw new Error(`[EventBus] Cannot subscribe ${subscriber} to non-existent topic '${topic}'`);
         }
@@ -85,18 +86,6 @@ class EventBus {
     }
 
     /**
-     * Get the default topic
-     *
-     * @readonly
-     * @static
-     *
-     * @memberof EventBus
-     */
-    static get defaultTopic() {
-        return '__global__';
-    }
-
-    /**
      * Notifies all subscribers if the publication of a specific message
      *
      * @static
@@ -110,4 +99,4 @@ class EventBus {
     }
 }
 
-export default EventBus;
+export default new EventBus();

@@ -6,7 +6,7 @@
  * @class MessageStore
  * @namespace PubSub
  */
-class MessageStore {
+export default class MessageStore {
     /**
      * Creates an instance of MessageStore
      * @param {EventBus} EventBus
@@ -76,5 +76,3 @@ class MessageStore {
         return this.topicExists(topic) && this.store[topic].includes(message);
     }
 }
-
-export default MessageStore;

@@ -5,7 +5,7 @@
  * @class MessageRecorder
  * @namespace Middleware
  */
-class MessageRecorder {
+export default class MessageRecorder {
     /**
      * Creates an instance of MessageRecorder
      *
@@ -20,6 +20,7 @@ class MessageRecorder {
     /**
      * Creates a topic in the MessageStore class after the topic has been created in the event bus
      *
+     * @param {Object} target - the actual objec that this middleware class hooks into
      * @returns {Function} - the next function in line
      *
      * @memberof MessageRecorder
@@ -36,6 +37,7 @@ class MessageRecorder {
      * Creates a message entry in the MessageStore class before the message has been published in
      * the event bus
      *
+     * @param {Object} target - the actual objec that this middleware class hooks into
      * @returns {Function} - the next function in line
      *
      * @memberof MessageRecorder
@@ -48,5 +50,3 @@ class MessageRecorder {
         };
     }
 }
-
-export default MessageRecorder;

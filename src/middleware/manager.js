@@ -11,7 +11,7 @@
  *
  * @see https://gist.github.com/unbug/dd596d79b5eace7d245f0a4db6cd2be5
  */
-class Manager {
+export default class Manager {
     /**
      * Creates an instance of Manager
      *
@@ -50,6 +50,7 @@ class Manager {
 
     /**
      * Register middleware for a target object
+     * The middleware class instances that are passed in, are applied from right to left
      *
      * @param {Object} target - Class instance to which the middleware needs to be applied to
      * @param {Array} ...middlewares - list of middleware class objects
@@ -67,14 +68,19 @@ class Manager {
                 const boundMiddlewareMethod = middleware[methodName].bind(middleware);
                 this.createMethodEntry(className, methodName);
 
-                this.middlewareFunctions[className][methodName].push(boundMiddlewareMethod(target));
+                this.middlewareFunctions[className][methodName].unshift(boundMiddlewareMethod(target));
             });
         });
 
         // replace target methods with middleware methods
         const classMethodNames = Object.keys(this.middlewareFunctions[className]);
         classMethodNames.forEach((classMethodName) => {
-            const targetMethod = target[classMethodName];
+            const targetMethod = target.classMethodName;
+
+            if (!targetMethod) {
+                throw new Error(`[Manager] Target method '${classMethodName}' does not exist`);
+            }
+
             const boundTargetMethod = targetMethod.bind(target);
             const methodMiddlewares = this.middlewareFunctions[className][classMethodName];
             const replacement = Manager.compose(methodMiddlewares)(boundTargetMethod);
@@ -129,5 +135,3 @@ class Manager {
         return (...args) => middlewareFunctions.reduceRight((v, fn) => fn(v), last(...args));
     }
 }
-
-export default Manager;
