@@ -1,6 +1,5 @@
-import EventBus from '../event-bus';
-import Subscriber from '../subscriber';
-import Publisher from '../publisher';
+import EventBus from '../src/pubsub/event-bus';
+import Publisher from '../src/pubsub/publisher';
 
 const assert = require('assert');
 const chai = require('chai');

@@ -1,5 +1,5 @@
-delete require.cache[require.resolve('../middleware.js')]
-const Middleware = require('../middleware.js');
+delete require.cache[require.resolve('../src/middleware/middleware.js')];
+const Middleware = require('../src/middleware/middleware.js');
 
 const assert = require('assert');
 const chai = require('chai');
