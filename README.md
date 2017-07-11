@@ -1,5 +1,7 @@
 
 [![CircleCI](https://circleci.com/gh/janjaap/eventbus.svg?style=svg)](https://circleci.com/gh/janjaap/eventbus)
+[![Greenkeeper badge](https://badges.greenkeeper.io/janjaap/eventbus.svg)](https://greenkeeper.io/)
+[![codecov](https://codecov.io/gh/janjaap/eventbus/branch/master/graph/badge.svg)](https://codecov.io/gh/janjaap/eventbus)
 
 # Eventbus
 The EventBus package enables asynchronous message handling and features two different modules; the PubSub module and the Middleware module. Asynchronous messages can be used to overcome dependencies between  (stateful) modules on a page or to prevent [callback hell](http://callbackhell.com/).
