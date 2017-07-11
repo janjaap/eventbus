@@ -75,7 +75,7 @@ export default class Manager {
         // replace target methods with middleware methods
         const classMethodNames = Object.keys(this.middlewareFunctions[className]);
         classMethodNames.forEach((classMethodName) => {
-            const targetMethod = target.classMethodName;
+            const targetMethod = target[classMethodName];
 
             if (!targetMethod) {
                 throw new Error(`[Manager] Target method '${classMethodName}' does not exist`);

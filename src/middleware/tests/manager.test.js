@@ -95,16 +95,16 @@ describe('MiddlewareManager', () => {
         }
 
         const target = new Target();
+        const mWare1 = new Mware1();
+        const mWare2 = new Mware2();
 
         it('replaces target method with composed middleware functions', () => {
-            mwm.use(target, new Mware2(), new Mware1());
+            mwm.use(target, mWare2, mWare1);
             target.setOwnProp('some_string');
             assert.strictEqual(target.someProperty, 'some_string_first_second');
         });
 
         it('middleware methods have access to target object', () => {
-            const mWare1 = new Mware1();
-            const mWare2 = new Mware2();
             const spy1 = sinon.spy(mWare1, 'setOwnProp');
             const spy2 = sinon.spy(mWare2, 'setOwnProp');
 
