@@ -1,3 +1,6 @@
+
+[![CircleCI](https://circleci.com/gh/janjaap/eventbus.svg?style=svg)](https://circleci.com/gh/janjaap/eventbus)
+
 # Eventbus
 The EventBus package enables asynchronous message handling and features two different modules; the PubSub module and the Middleware module. Asynchronous messages can be used to overcome dependencies between  (stateful) modules on a page or to prevent [callback hell](http://callbackhell.com/).
 
@@ -312,8 +315,4 @@ middlewareManager.use(
 ```
 
 The above construct will persist messages for later use. However, messages will only be persisted when the `MessageRecorder` middleware class instance has been hooked into the EventBus. Messages that are published before that, are lost and cannot be acted upon at a later point in time.
-
----
-
-CircleCI build status: [![CircleCI](https://circleci.com/gh/janjaap/eventbus.svg?style=svg)](https://circleci.com/gh/janjaap/eventbus)
 
