@@ -149,22 +149,22 @@ Changing the default topic is as easy as `eventBus.setDefaultTopic('__default__'
 Publishing messages before subscribers have subscribed to them will not lead to the subscriber callback being called. This asynchronous behaviour can be achieved by making use of the middleware module.
 
 ## Middleware module
-The Middleware module has a Manager class that allows for middleware class objects to hook into other classes so that actions can be performed before or after the original class method has executed. It's also possible to complete override the class method.
+The Middleware module has a Manager class that allows for middleware class objects to hook into other classes so that actions can be performed before or after the original class method has executed. It's also possible to completely override the class method.
 Next to the Manager class, the Middleware module has the MessageRecorder as well as the PublicationPoller helper classes.
 
 ---
 
 ### Using the middleware manager
 
-The middleware manager chains its middleware class instances so that they are executed in the order they are defined in the manager's `use` method. Each middleware class has access to the target object as well as to the next method in the chain, which can be the target's method or the following middleware class method.
+The middleware manager chains its middleware class instances; they are executed in the reverse order they are defined in the manager's `use` method. Each middleware class has access to the target object as well as to the next method in the chain, which can be the target's method or the following middleware class method.
 
 Take the following (simplified) example:
 
 ```javascript
-// class responsible for storing subscribers
+// class responsible for sending messages to subscribers
 class EventBus {
     constructor() {
-        this.subscribers = [];
+        this.subscribers = [new Subscriber(), new Subscriber(), new Subscriber()];
     }
 
     publish(message) {
@@ -189,6 +189,11 @@ class MessageVerifier {
     publish(target) {
         return next => (message, topic) => {
             message = message.replace(/[\|&;\$%@"<>\(\)\+,]/g, '');
+
+            // break the chain if the message turns out to be an empty string
+            if (message.length === 0) {
+                return false;
+            }
 
             return next(message, topic);
         };
@@ -217,8 +222,8 @@ const eventBus = new EventBus();
 
 middlewareManager.use(
     eventBus,
-    MessageVerifier,
     MessageRecorder,
+    MessageVerifier,
 );
 ```
 
@@ -227,7 +232,7 @@ Both middleware classes hook into the EventBus' `publish()` method. The `Message
 The `MessageRecorder` middleware class appends its functionality to the target method by calling `next()` first, storing the value for the `message` parameter and then returning the result of the call to `next()`.
 
 By using the above two middleware classes, the order of actions, when calling the `publish()` on the EventBus, are:
-- remove invalid characters
+- remove invalid characters, break the chain if the message is empty
 - publish message, calling all subscribers
 - store message for later use
 
@@ -320,6 +325,9 @@ middlewareManager.use(
 /**
  * Then we hook a PublicationPoller middleware class instance into the previously created subscriber
  * and pass in the same MessageStore class instance to the PublicationPoller.
+ * The responsiblity of the PublicationPoller is to check if all required messages have been
+ * published when a subscriber subscribers itself to a particular topic and, when that is the case,
+ * execute the subscriber's callback function.
  */
 middlewareManager.use(
     otherSubscriber,
@@ -327,5 +335,23 @@ middlewareManager.use(
 );
 ```
 
-The above construct will persist messages for later use. However, messages will only be persisted when the `MessageRecorder` middleware class instance has been hooked into the EventBus. Messages that are published before that, are lost and cannot be acted upon at a later point in time.
+The above construct will persist messages for later use. However, messages will only be persisted when the `MessageRecorder` middleware class instance has been hooked into the EventBus. Messages that are published before that are lost and cannot be acted upon at a later point in time.
 
+## Available bundles
+This repo comes with a set of bundled modules:
+<dl>
+  <dt>app</dt>
+  <dd>Example file that contains an example implementation</dd>
+
+  <dt>middleware</dt>
+  <dd>Complete Middleware module containing the classes 'Manager', 'MessageRecorder' and 'PublicationPoller'</dd>
+
+  <dt>middleware_manager<dt>
+  <dd>Just the 'Manager' class</dd>
+
+  <dt>pubsub<dt>
+  <dd>Complete PubSub module containing the class 'EventBus', 'MessageStore', 'Publisher' and 'Subscriber'</dd>
+
+  <dd>pubsub_middleware</dd>
+  <dt>Package containing all class from the PubSub and the MiddleWare module</dt>
+</dl>
