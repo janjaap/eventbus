@@ -339,19 +339,27 @@ The above construct will persist messages for later use. However, messages will 
 
 ## Available bundles
 This repo comes with a set of bundled modules:
-<dl>
-  <dt>app</dt>
-  <dd>Example file that contains an example implementation</dd>
+<details>
+    <summary>app</summary>
+    Example file that contains an example implementation
+</details>
 
-  <dt>middleware</dt>
-  <dd>Complete Middleware module containing the classes 'Manager', 'MessageRecorder' and 'PublicationPoller'</dd>
+<details>
+    <summary>middleware</summary>
+    Complete Middleware module containing the classes 'Manager', 'MessageRecorder' and 'PublicationPoller'
+</details>
 
-  <dt>middleware_manager<dt>
-  <dd>Just the 'Manager' class</dd>
+<details>
+    <summary>middleware_manager</summary>
+    Just the 'Manager' class
+</details>
 
-  <dt>pubsub<dt>
-  <dd>Complete PubSub module containing the class 'EventBus', 'MessageStore', 'Publisher' and 'Subscriber'</dd>
+<details>
+    <summary>pubsub</summary>
+    Complete PubSub module containing the class 'EventBus', 'MessageStore', 'Publisher' and 'Subscriber'
+</details>
 
-  <dd>pubsub_middleware</dd>
-  <dt>Package containing all class from the PubSub and the MiddleWare module</dt>
-</dl>
+<details>
+    <summary>pubsub_middleware</summary>
+    Package containing all class from the PubSub and the MiddleWare module
+</details>
