@@ -22,12 +22,13 @@
     },
     "scripts": {
         "build:dev": "./node_modules/.bin/webpack --env=dev --progress --profile --colors",
-        "build:dist": "./node_modules/.bin/webpack --env=prod",
+        "build": "./node_modules/.bin/webpack --env=prod",
         "lint": "./node_modules/.bin/eslint *.js ./src/**",
-        "test": "./node_modules/.bin/mocha --require babel-register --require babel-plugin-transform-class-properties",
-        "prebuild": "yarn run test"
+        "test": "./node_modules/.bin/mocha --require babel-register --require babel-plugin-transform-class-properties"
     },
     "dependencies": {
+        "clean-webpack-plugin": "^0.1.16",
+        "html-webpack-plugin": "^2.29.0",
         "webpack": "^3.1.0",
         "webpack-merge": "^4.1.0",
         "webpack-polyfill-injector": "^0.0.3"

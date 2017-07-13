@@ -1,8 +1,6 @@
-const merge = require('webpack-merge');
 const webpack = require('webpack');
-const webpackBase = require('./webpack.js');
 
-module.exports = merge(webpackBase, {
+module.exports = {
     plugins: [
         new webpack.LoaderOptionsPlugin({
             minimize: true,
@@ -20,4 +18,4 @@ module.exports = merge(webpackBase, {
             comments: false,
         }),
     ],
-});
+};
