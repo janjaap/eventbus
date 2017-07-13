@@ -21,6 +21,10 @@ export default class EventBus {
         this.topics[this.defaultTopic] = [];
     }
 
+    setDefaultTopic(topic) {
+        this.defaultTopic = topic;
+    }
+
     /**
      * Creates a topic
      *

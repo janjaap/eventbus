@@ -8,6 +8,8 @@ const eventBus = new PubSub.EventBus();
 const messageStore = new PubSub.MessageStore(PubSub.EventBus);
 const middlewareManager = new Middleware.Manager();
 
+eventBus.setDefaultTopic('__default__');
+
 // using the MessageRecorder class to store messages from the EventBus in the MessageStore
 middlewareManager.use(
     eventBus,

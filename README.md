@@ -103,8 +103,9 @@ const scrollDetectorSubscriber = new PubSub.Subscriber(
  * - listen for the publication of the messages 'button_clicked' and 'checkbox_checked'
  * - execute its callback when each of those messages has been published
  */
-const userClickedSubscriber = new PubSub.Subscriber(['button_clicked', 'checkbox_checked'],
-    () => { console.log('Button clicked!'); },
+const userClickedSubscriber = new PubSub.Subscriber(
+    ['button_clicked', 'checkbox_checked'],
+    () => { console.log('UI element clicked!'); },
 ).subscribeToOne(UI_TOPIC)
     .requireAllMessages(false);
 ```
@@ -128,11 +129,22 @@ buttonElement.addEventListener('click', () => guiPublisher.send('button_clicked'
 checkboxElement.addEventListener('change', () => guiPublisher.send('checkbox_checked'));
 ```
 
-As with creating publishers aa topic owners, it's also not required to have messages published by means of a Publisher object. The EventBus can be called directly, like so:
+As with creating publishers as topic owners, it's also not required to have messages published by means of a Publisher object. The EventBus can be called directly, like so:
 ```javascript
 eventBus.publish('window_matchmedia', POLYFILLS_LOADED_TOPIC);
 eventBus.publish('scrollmonitor', THIRD_PARTY_LOADED_TOPIC);
 ```
+
+The EventBus also has a default topic (`__global__`) that can be subscribed to and published in.
+Calling `eventBus.publish('window_matchmedia')` will publish that message in the default topic. Subscribers still have to be subscribed to that default topic in order to receive message from it:
+
+```javascript
+const defaultTopicSubscriber = new PubSub.Subscriber('message_to_listen_to',
+    () => { console.log('Message has been published'); },
+).subscribeToOne(eventBus.defaultTopic);
+```
+
+Changing the default topic is as easy as `eventBus.setDefaultTopic('__default__');`.
 
 Publishing messages before subscribers have subscribed to them will not lead to the subscriber callback being called. This asynchronous behaviour can be achieved by making use of the middleware module.
 
