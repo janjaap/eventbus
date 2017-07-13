@@ -9,6 +9,7 @@ const expect = chai.expect;
 
 chai.use(sinonChai);
 
+const eventBus = new EventBus();
 const topic = '✨ a topic can be any string ✨';
 const message = '🔗 a message can also be any string 📃';
 const unknownTopic = 'Here be a topic that is not created first';
@@ -16,23 +17,23 @@ const unknownTopic = 'Here be a topic that is not created first';
 describe('EventBus', function () {
     describe('Instance', function () {
         it('has a default topic', function () {
-            const hasDefaultTopic = EventBus.topicIsCreated(EventBus.defaultTopic);
+            const hasDefaultTopic = eventBus.topicIsCreated(eventBus.defaultTopic);
 
-            expect(EventBus.topicIsCreated).to.be.a('function');
+            expect(eventBus.topicIsCreated).to.be.a('function');
             assert.strictEqual(hasDefaultTopic, true);
         });
 
         it('allows for creating topics', function () {
-            const returnedTopic = EventBus.createTopic(topic);
+            const returnedTopic = eventBus.createTopic(topic);
 
-            expect(EventBus.createTopic).to.be.a('function');
+            expect(eventBus.createTopic).to.be.a('function');
             assert.ok(topic === returnedTopic);
         });
 
         it('stores topics', function () {
-            EventBus.createTopic(topic);
-            const topicIsCreated = EventBus.topicIsCreated(topic);
-            const unknownTopicIsCreated = EventBus.topicIsCreated('🚚');
+            eventBus.createTopic(topic);
+            const topicIsCreated = eventBus.topicIsCreated(topic);
+            const unknownTopicIsCreated = eventBus.topicIsCreated('🚚');
 
             assert.strictEqual(topicIsCreated, true);
             assert.notStrictEqual(unknownTopicIsCreated, true);
@@ -42,18 +43,18 @@ describe('EventBus', function () {
     describe('Subscribe', function () {
         it('allowed for default topic', function () {
             const subscriber = { process: msg => msg };
-            EventBus.subscribe(subscriber);
-            const topics = EventBus.topics;
-            const defaultTopicSubscribers = topics[EventBus.defaultTopic];
+            eventBus.subscribe(subscriber);
+            const topics = eventBus.topics;
+            const defaultTopicSubscribers = topics[eventBus.defaultTopic];
 
             expect(defaultTopicSubscribers).to.include(subscriber);
         });
 
         it('throws an error on subscribing to unknown topic', function () {
             const subscriber = { process: msg => msg };
-            const spy = sinon.spy(EventBus, 'subscribe');
+            const spy = sinon.spy(eventBus, 'subscribe');
 
-            EventBus.subscribe.bind(EventBus, subscriber, unknownTopic);
+            eventBus.subscribe.bind(eventBus, subscriber, unknownTopic);
 
             expect(spy).to.throw();
         });
@@ -61,8 +62,8 @@ describe('EventBus', function () {
 
     describe('Publish', function () {
         it('throws an error on publication in unknown topic', function () {
-            const spy = sinon.spy(EventBus, 'publish');
-            EventBus.publish.bind(EventBus, message, unknownTopic);
+            const spy = sinon.spy(eventBus, 'publish');
+            eventBus.publish.bind(eventBus, message, unknownTopic);
 
             expect(spy).to.throw(Error);
         });

@@ -10,6 +10,7 @@ const expect = chai.expect;
 
 chai.use(sinonChai);
 
+const eventBus = new EventBus();
 const message = '🔗 a message can also be any string 📃';
 const messages = [
     '🔗 a message can also be any string 📃',
@@ -21,7 +22,7 @@ let s = null;
 
 describe('Subscriber', function () {
     beforeEach(function () {
-        s = new Subscriber(message, callback, EventBus);
+        s = new Subscriber(message, callback, eventBus);
     });
 
     describe('Instance', function () {
@@ -41,7 +42,7 @@ describe('Subscriber', function () {
         });
 
         it('can receive an array of messages to listen to', function () {
-            s = new Subscriber(messages, callback, EventBus);
+            s = new Subscriber(messages, callback, eventBus);
 
             expect(s.listensFor).to.be.a('function');
             assert.strictEqual(s.listensFor(messages[0]), true);
@@ -66,7 +67,7 @@ describe('Subscriber', function () {
     describe('Process', function () {
         it('executes the callback when its message has been published', function () {
             const cb = sinon.spy();
-            s = new Subscriber(message, cb, EventBus);
+            s = new Subscriber(message, cb, eventBus);
 
             expect(cb).to.have.not.been.called;
             s.process(message);
@@ -75,7 +76,7 @@ describe('Subscriber', function () {
 
         it('executes the callback each time a message has been published', function () {
             const cb = sinon.spy();
-            s = new Subscriber(messages, cb, EventBus);
+            s = new Subscriber(messages, cb, eventBus);
 
             s.requireAllMessages(false);
 
@@ -91,7 +92,7 @@ describe('Subscriber', function () {
 
         it('executes the callback when all messages have been published', function () {
             const cb = sinon.spy();
-            s = new Subscriber(messages, cb, EventBus);
+            s = new Subscriber(messages, cb, eventBus);
 
             s.process(messages[0]);
             expect(cb).to.have.not.been.called;

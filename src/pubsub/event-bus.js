@@ -9,7 +9,7 @@
  * @class EventBus
  * @namespace PubSub
  */
-class EventBus {
+export default class EventBus {
     /**
      * Creates an instance of EventBus.
      *
@@ -98,5 +98,3 @@ class EventBus {
         subscribers.forEach(subscriber => subscriber.process(message));
     }
 }
-
-export default new EventBus();

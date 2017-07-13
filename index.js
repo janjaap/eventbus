@@ -4,20 +4,21 @@ import * as PubSub from './src/pubsub/pubsub';
 // Manager, MessageRecorder and PublicationPoller
 import * as Middleware from './src/middleware/middleware';
 
+const eventBus = new PubSub.EventBus();
 const messageStore = new PubSub.MessageStore(PubSub.EventBus);
 const middlewareManager = new Middleware.Manager();
 
 // using the MessageRecorder class to store messages from the EventBus in the MessageStore
 middlewareManager.use(
-    PubSub.EventBus,
+    eventBus,
     new Middleware.MessageRecorder(messageStore),
 );
 
 const POLYFILLS_LOADED_TOPIC = 'polyfills';
 const MODULES_LOADED_TOPIC = 'modules';
 
-const polyfillPublisher = new PubSub.Publisher(POLYFILLS_LOADED_TOPIC, PubSub.EventBus);
-const modulePublisher = new PubSub.Publisher(MODULES_LOADED_TOPIC, PubSub.EventBus);
+const polyfillPublisher = new PubSub.Publisher(POLYFILLS_LOADED_TOPIC, eventBus);
+const modulePublisher = new PubSub.Publisher(MODULES_LOADED_TOPIC, eventBus);
 
 modulePublisher.send('scrollmonitor');
 
@@ -25,7 +26,7 @@ modulePublisher.send('scrollmonitor');
 const newSubscriber = new PubSub.Subscriber(
     ['window_matchmedia', 'scrollmonitor'],
     () => { console.log('done!'); },
-    PubSub.EventBus,
+    eventBus,
 ).requireAllMessages(false);
 
 // using the PublicationPoller class to check if messages have already been published
