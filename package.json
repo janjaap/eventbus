@@ -34,7 +34,7 @@
         "webpack-polyfill-injector": "^0.0.3"
     },
     "devDependencies": {
-        "@endouble.com/eslint-config-endouble": "^0.6.0",
+        "@endouble.com/eslint-config-endouble": "^1.0.0",
         "@endouble.com/stylelint-config-endouble": "^0.3.0",
         "babel-cli": "^6.24.1",
         "babel-core": "^6.25.0",
