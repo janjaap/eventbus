@@ -31,7 +31,7 @@
         "html-webpack-plugin": "^2.29.0",
         "webpack": "^3.1.0",
         "webpack-merge": "^4.1.0",
-        "webpack-polyfill-injector": "^0.0.3"
+        "webpack-polyfill-injector": "^0.0.4"
     },
     "devDependencies": {
         "@endouble.com/eslint-config-endouble": "^0.6.0",
