@@ -29,7 +29,7 @@
     "dependencies": {
         "clean-webpack-plugin": "^0.1.16",
         "html-webpack-plugin": "^2.29.0",
-        "webpack": "^3.1.0",
+        "webpack": "^4.0.0",
         "webpack-merge": "^4.1.0",
         "webpack-polyfill-injector": "^0.0.3"
     },
