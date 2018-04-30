@@ -1,8 +1,8 @@
 // EventBus (instantiated), Publisher, Subscriber and Messagestore
-import * as PubSub from './src/pubsub/pubsub';
+import * as PubSub from './src/pubsub';
 
 // Manager, MessageRecorder and PublicationPoller
-import * as Middleware from './src/middleware/middleware';
+import * as Middleware from './src/middleware';
 
 const eventBus = new PubSub.EventBus();
 const messageStore = new PubSub.MessageStore(PubSub.EventBus);
