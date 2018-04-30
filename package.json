@@ -1,6 +1,6 @@
 {
     "name": "eventbus",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Asynchronous message publishing and subscribing",
     "main": "index.js",
     "repository": {
