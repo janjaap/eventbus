@@ -1,2 +1,2 @@
-dist
-src/**/tests
+dist/
+src/**/test.js
