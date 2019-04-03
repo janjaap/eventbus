@@ -27,7 +27,7 @@
         "postinstall": "yarn babel"
     },
     "devDependencies": {
-        "@endouble.com/eslint-config-endouble": "^1.1.0",
+        "@endouble.com/eslint-config-endouble": "^2.1.0",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.3",
         "babel-eslint": "^8.2.3",
