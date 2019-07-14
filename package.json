@@ -1,44 +1,43 @@
 {
-    "name": "eventbus",
-    "version": "1.1.0",
-    "description": "Asynchronous message publishing and subscribing",
-    "main": "index.js",
-    "repository": {
-        "url": "git@github.com:janjaap/eventbus.git",
-        "type": "git"
-    },
-    "author": "Jan Jaap van Deursen <j.j.m.vandeursen@gmail.com>",
-    "license": "MIT",
-    "engines": {
-        "node": ">=6"
-    },
-    "config": {
-        "blanket": {
-            "data-cover-never": [
-                "./node_modules",
-                "./src/**/tests"
-            ]
-        }
-    },
-    "scripts": {
-        "babel": "npx babel ./src --out-dir ./dist --ignore spec.js,test.js",
-        "lint": "npx eslint src",
-        "test": "npx jest",
-        "postinstall": "yarn babel"
-    },
-    "devDependencies": {
-        "@endouble.com/eslint-config-endouble": "^1.1.0",
-        "babel-cli": "^6.26.0",
-        "babel-core": "^6.26.3",
-        "babel-eslint": "^8.2.3",
-        "babel-loader": "^7.1.4",
-        "babel-plugin-transform-class-properties": "^6.24.1",
-        "babel-preset-env": "^1.6.1",
-        "babel-register": "^6.26.0",
-        "eslint": "^4.19.1",
-        "jest": "^22.4.3",
-        "npx": "^10.2.0",
-        "snyk": "^1.78.0"
-    },
-    "snyk": true
+  "name": "eventbus",
+  "version": "1.1.0",
+  "description": "Asynchronous message publishing and subscribing",
+  "main": "index.js",
+  "repository": {
+    "url": "git@github.com:janjaap/eventbus.git",
+    "type": "git"
+  },
+  "author": "Jan Jaap van Deursen <j.j.m.vandeursen@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6"
+  },
+  "config": {
+    "blanket": {
+      "data-cover-never": [
+        "./node_modules",
+        "./src/**/tests"
+      ]
+    }
+  },
+  "scripts": {
+    "babel": "npx babel ./src --out-dir ./dist --ignore spec.js,test.js",
+    "lint": "npx eslint src",
+    "test": "npx jest",
+    "postinstall": "yarn babel"
+  },
+  "devDependencies": {
+    "@endouble.com/eslint-config-endouble": "^1.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.19.1",
+    "jest": "^22.4.3",
+    "snyk": "^1.78.0"
+  },
+  "snyk": true
 }
