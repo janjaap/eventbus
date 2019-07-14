@@ -3,6 +3,6 @@
         "transform-class-properties"
     ],
     "presets": [
-        "env"
+        "@babel/preset-env"
     ]
 }

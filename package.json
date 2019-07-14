@@ -27,17 +27,18 @@
     "postinstall": "yarn babel"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@babel/register": "^7.4.4",
     "@endouble.com/eslint-config-endouble": "^1.1.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
-    "eslint": "^4.19.1",
-    "jest": "^22.4.3",
-    "snyk": "^1.78.0"
+    "eslint": "^6.0.1",
+    "eslint-plugin-import": "^2.18.0",
+    "jest": "^24.8.0",
+    "snyk": "^1.193.1"
   },
   "snyk": true
 }
